@@ -10,7 +10,7 @@ const swap = async () => {
   /**
    * The RaydiumSwap instance for handling swaps.
    */
-  const privateURL =process.env.PrivateURL.toString()
+  const privateURL =process.env.MainURL.toString()
   const subPrivateKey = process.env.SubPrivateKey.toString();
   const liquidityFile = process.env.LiquidityFile.toString();
   const tokenAAmount = parseFloat(process.env.TokenAAmount.toString());
