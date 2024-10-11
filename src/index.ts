@@ -21,12 +21,7 @@ const swap = async () => {
   const fee = parseFloat(process.env.Fee.toString())
   const executeSwap = Boolean(process.env.ExecuteSwap.toString());
   const maxRetries = parseInt(process.env.MaxRetries.toString());
-
-  const fixedSideString = process.env.FIXED_SIDE.toString();
-  let fixedSide = 'out';
-  if (fixedSideString === 'in') {
-    fixedSide = 'in';
-  }
+  const fixedSide = process.env.FIXED_SIDE.toString() === 'in' ? 'in' : 'out'
 
   const raydiumSwap = new RaydiumSwap(privateURL, subPrivateKey);
   console.log(`Raydium swap initialized`);
