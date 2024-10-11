@@ -26,6 +26,7 @@ const swap = async () => {
   const raydiumSwap = new RaydiumSwap(privateURL, subPrivateKey);
   console.log(`Raydium swap initialized`);
   console.log(`Swapping ${tokenAAmount} of ${tokenAAdress} for ${tokenBAdress}...`)
+  console.log(`useVersionedTransaction: ${useVersionedTransaction}, executeSwap: ${executeSwap}...`)
 
   /**
    * Load pool keys from the Raydium API to enable finding pool information.
@@ -72,7 +73,7 @@ const swap = async () => {
     const txid = useVersionedTransaction
       ? await raydiumSwap.sendVersionedTransaction(tx as VersionedTransaction, maxRetries)
       : await raydiumSwap.sendLegacyTransaction(tx as Transaction, maxRetries);
-
+    console.log(`Sending txid`);
     console.log(`https://solscan.io/tx/${txid}`);
 
   } else {
@@ -82,7 +83,7 @@ const swap = async () => {
     const simRes = useVersionedTransaction
       ? await raydiumSwap.simulateVersionedTransaction(tx as VersionedTransaction)
       : await raydiumSwap.simulateLegacyTransaction(tx as Transaction);
-
+    console.log(`get in Simulate`);
     console.log(simRes);
   }
 };
