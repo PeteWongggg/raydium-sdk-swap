@@ -17,6 +17,7 @@ def Buy(base_token=SOL, token_address=USDC, amount=0.01, fee=0.0005, slippageRat
     env['FIXED_SIDE'] = fixSIde
     env['ExecuteSwap'] = str(executeSwap)
     env['MaxRetries'] = str(maxRetries)
+    env['SlippageRate'] = str(slippageRate)
 
     cwd = os.getcwd()
 
