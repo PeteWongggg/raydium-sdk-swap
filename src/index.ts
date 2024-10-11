@@ -10,20 +10,35 @@ const swap = async () => {
   /**
    * The RaydiumSwap instance for handling swaps.
    */
-  const raydiumSwap = new RaydiumSwap(process.env.PrivateURL, process.env.SubPraviteKey);
+  const privateURL =process.env.PrivateURL.toString()
+  const subPrivateKey = process.env.SubPrivateKey.toString();
+  const liquidityFile = process.env.LiquidityFile.toString();
+  const tokenAAmount = parseFloat(process.env.TokenAAmount.toString());
+  const tokenAAdress = process.env.TokenAAddress.toString();
+  const tokenBAdress = process.env.TokenBAddress.toString();
+
+  const useVersionedTransaction: boolean = Boolean(process.env.UseVersionedTransaction.toString());
+  const fixedSide = process.env.FIXED_SIDE.toString() === 'in' ? 'in' : 'out';
+  const slippageRate = parseFloat(process.env.SlippageRate.toString())
+  const fee = parseFloat(process.env.Fee.toString())
+  const executeSwap = Boolean(process.env.ExecuteSwap.toString());
+  const maxRetries = parseInt(process.env.MaxRetries.toString());
+
+  const raydiumSwap = new RaydiumSwap(privateURL, subPrivateKey);
   console.log(`Raydium swap initialized`);
-  console.log(`Swapping ${process.env.TokenAAmount} of ${process.env.TokenAAddress} for ${process.env.TokenBAddress}...`)
+  console.log(`Swapping ${tokenAAmount} of ${tokenAAdress} for ${tokenBAdress}...`)
 
   /**
    * Load pool keys from the Raydium API to enable finding pool information.
    */
-  await raydiumSwap.loadPoolKeys(process.env.LiquidityFile);
+
+  await raydiumSwap.loadPoolKeys(liquidityFile);
   console.log(`Loaded pool keys`);
 
   /**
    * Find pool information for the given token pair.
    */
-  const poolInfo = raydiumSwap.findPoolInfoForTokens(process.env.TokenAAddress, process.env.TokenBAddress);
+  const poolInfo = raydiumSwap.findPoolInfoForTokens(tokenAAdress, tokenBAdress);
   if (!poolInfo) {
     console.error('Pool info not found');
     return 'Pool info not found';
@@ -35,14 +50,10 @@ const swap = async () => {
    * Prepare the swap transaction with the given parameters.
    */
 
-  const tokenAAmount: number = Number(process.env.TokenAAmount);
-  const useVersionedTransaction: boolean = Boolean(process.env.UseVersionedTransaction);
-  const fixedSide = process.env.FIXED_SIDE === 'in' ? 'in' : 'out';
-  const slippageRate: number = Number(process.env.SlippageRate)
-  const fee: number = Number(process.env.Fee)
+
 
   const tx = await raydiumSwap.getSwapTransaction(
-    process.env.TokenBAddress,
+    tokenBAdress,
     tokenAAmount,
     poolInfo,
     fee * LAMPORTS_PER_SOL,
@@ -51,8 +62,7 @@ const swap = async () => {
     slippageRate
   );
 
-  const executeSwap: boolean = Boolean(process.env.ExecuteSwap);
-  const maxRetries: number = Number(process.env.MaxRetries);
+
   /**
    * Depending on the configuration, execute or simulate the swap.
    */
