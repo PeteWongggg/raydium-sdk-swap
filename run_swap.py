@@ -1,4 +1,3 @@
-PRIVATE = 'https://go.getblock.io/d287cc6e8eec4374891f369c333ca7a2'
 MAIN = 'https://api.mainnet-beta.solana.com'
 
 import subprocess
