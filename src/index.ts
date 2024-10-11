@@ -17,7 +17,7 @@ const swap = async () => {
   const tokenAAdress = process.env.TokenAAddress.toString();
   const tokenBAdress = process.env.TokenBAddress.toString();
 
-  const useVersionedTransaction: boolean = Boolean(process.env.UseVersionedTransaction.toString());
+  const useVersionedTransaction = Boolean(process.env.UseVersionedTransaction.toString());
   const fixedSide = process.env.FIXED_SIDE.toString() === 'in' ? 'in' : 'out';
   const slippageRate = parseFloat(process.env.SlippageRate.toString())
   const fee = parseFloat(process.env.Fee.toString())
