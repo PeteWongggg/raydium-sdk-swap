@@ -18,9 +18,18 @@ def Buy(base_token=SOL, token_address=USDC, amount=0.01, fee=0.0005, slippageRat
     env['ExecuteSwap'] = str(executeSwap)
     env['MaxRetries'] = str(maxRetries)
 
+    cmd_1 = ['cd' 'src']
+    result = subprocess.run(cmd_1)
+
+    cmd_2 = ['ts-node' 'trimMainnet.ts']
+    result = subprocess.run(cmd_2, env=env)
+
+    cmd_3 = ['cd', '..']
+    result = subprocess.run(cmd_3)
+
     # 执行命令
-    cmd = ['yarn', 'swap']
-    result = subprocess.run(cmd, env=env)
+    cmd_4 = ['yarn', 'swap']
+    result = subprocess.run(cmd_4, env=env)
 
     print(result.stdout)
     print(result.stderr)
