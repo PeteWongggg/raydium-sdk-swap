@@ -111,7 +111,10 @@ class RaydiumSwap {
     const directionIn = poolKeys.quoteMint.toString() == toToken
     const { minAmountOut, amountIn } = await this.calcAmountOut(poolKeys, amount, directionIn, slippageRate)
     console.log({ minAmountOut, amountIn });
+
+    console.log(`Wallet public key ${this.wallet.publicKey}...`);
     const userTokenAccounts = await this.getOwnerTokenAccounts()
+
     const swapTransaction = await Liquidity.makeSwapInstructionSimple({
       connection: this.connection,
       makeTxVersion: useVersionedTransaction ? 0 : 1,
