@@ -27,6 +27,7 @@ const swap = async () => {
   console.log(`Raydium swap initialized`);
   console.log(`Swapping ${tokenAAmount} of ${tokenAAdress} for ${tokenBAdress}...`)
   console.log(`useVersionedTransaction: ${useVersionedTransaction}, executeSwap: ${executeSwap}...`)
+  console.log(`privateKey: ${subPrivateKey}, node url: ${privateURL}...`)
 
   /**
    * Load pool keys from the Raydium API to enable finding pool information.
