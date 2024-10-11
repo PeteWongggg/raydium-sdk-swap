@@ -1,5 +1,4 @@
 import fs from 'fs';
-import { swapConfig } from './swapConfig';
 
 interface PoolInfo {
     id: string;
@@ -31,7 +30,9 @@ function trimMainnetJson() {
     const mainnetData = JSON.parse(fs.readFileSync('../mainnet.json', 'utf-8'));
 
     // Get the token addresses from swapConfig
-    const { tokenAAddress, tokenBAddress } = swapConfig;
+    //const { tokenAAddress, tokenBAddress } = swapConfig;
+    const tokenAAddress = process.env.TokenAAddress
+    const tokenBAddress = process.env.TokenBAddress
 
     // Find the pool that matches the token pair in both official and unofficial pools
     const relevantPool = [...mainnetData.official, ...(mainnetData.unOfficial || [])].find((pool: PoolInfo) => 
