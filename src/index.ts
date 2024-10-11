@@ -61,7 +61,7 @@ const swap = async () => {
     fixedSide,
     slippageRate
   );
-
+  console.log('tx made');
 
   /**
    * Depending on the configuration, execute or simulate the swap.
